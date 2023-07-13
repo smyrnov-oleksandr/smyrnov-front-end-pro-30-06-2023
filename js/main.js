@@ -1,11 +1,20 @@
-// let userName = prompt('What is your name?');
-// alert(`Hello, ${userName}! How are you?`);
+let mathFunc = prompt(
+  'How do you want to calculate (write "add","sub","mult or "div":'
+);
+let num1 = +prompt('Write your num1:');
+let num2 = +prompt('Write your num2:');
 
-let userName = prompt('What is your name?');
-let userAge = prompt('How old are you?');
-let userLocation = prompt('Where are you from?');
-
-alert(userName + ' ' + userAge + ' ' + userLocation);
-alert(`Your name: ${userName}
-Your age: ${userAge}
-Your city: ${userLocation}`);
+switch (mathFunc) {
+  case 'add':
+    alert(`${num1} + ${num2} = ${num1 + num2}`);
+    break;
+  case 'sub':
+    alert(`${num1} - ${num2} = ${num1 - num2}`);
+    break;
+  case 'mult':
+    alert(`${num1} * ${num2} = ${num1 * num2}`);
+    break;
+  case 'div':
+    alert(`${num1} / ${num2} = ${num1 / num2}`);
+    break;
+}
