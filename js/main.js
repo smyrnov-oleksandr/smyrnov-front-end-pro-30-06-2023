@@ -1,11 +1,16 @@
-// let userName = prompt('What is your name?');
-// alert(`Hello, ${userName}! How are you?`);
-
-let userName = prompt('What is your name?');
-let userAge = prompt('How old are you?');
-let userLocation = prompt('Where are you from?');
-
-alert(userName + ' ' + userAge + ' ' + userLocation);
-alert(`Your name: ${userName}
-Your age: ${userAge}
-Your city: ${userLocation}`);
+let numOrStr = prompt('input number or string');
+console.log(numOrStr);
+switch (true) {
+  case numOrStr === null:
+    console.log('ви скасували');
+    break;
+  case numOrStr.trim() === '':
+    console.log('Empty String');
+    break;
+  case isNaN(+numOrStr):
+    console.log(' number is Ba_NaN');
+    break;
+  default:
+    console.log('OK!');
+    break;
+}
