@@ -1,11 +1,18 @@
-// let userName = prompt('What is your name?');
-// alert(`Hello, ${userName}! How are you?`);
+// Реалізуйте функцію generateKey(length, characters), яка повертає рядок випадкових символів із набору characters довжиною length. span>
+// Наприклад:
 
-let userName = prompt('What is your name?');
-let userAge = prompt('How old are you?');
-let userLocation = prompt('Where are you from?');
+const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
-alert(userName + ' ' + userAge + ' ' + userLocation);
-alert(`Your name: ${userName}
-Your age: ${userAge}
-Your city: ${userLocation}`);
+function generateKey(length, characters) {
+  let randomString = '';
+
+  for (let i = 0; i < length; i++) {
+    let randomPosition = Math.floor(Math.random() * characters.length);
+    randomString += characters.slice(randomPosition, randomPosition + 1);
+  }
+
+  return randomString;
+}
+
+const key = generateKey(16, characters);
+console.log(key); // eg599gb60q926j8i
