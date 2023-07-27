@@ -1,11 +1,15 @@
-// let userName = prompt('What is your name?');
-// alert(`Hello, ${userName}! How are you?`);
+// Реалізуйте функцію removeElement(array, item), щоб видалити елемент item з масиву array.
+// Наприклад:
+// const array = [1, 2, 3, 4, 5, 6, 7];
+// removeElement(array, 5 );
+// console.log(array);
+// Результат: [1, 2, 3, 4, 6, 7]
 
-let userName = prompt('What is your name?');
-let userAge = prompt('How old are you?');
-let userLocation = prompt('Where are you from?');
+const array = [1, 2, 3, 4, 5, 6, 7];
 
-alert(userName + ' ' + userAge + ' ' + userLocation);
-alert(`Your name: ${userName}
-Your age: ${userAge}
-Your city: ${userLocation}`);
+function removeElement(array, item) {
+  return array.splice(item - 1, 1);
+}
+
+removeElement(array, 5);
+console.log(array);
