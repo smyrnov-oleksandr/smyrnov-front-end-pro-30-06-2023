@@ -14,11 +14,8 @@ let fibNum = 30;
 let out = document.querySelector('p');
 let res = '';
 for (let i = 2; i <= fibNum; i++) {
-  for (let k = 0; k <= i; k++) {
-    fib[i] = fib[i - 2] + fib[i - 1];
-  }
-  res += fib[i];
-  res += '\n';
+  fib[i] = fib[i - 2] + fib[i - 1];
+  res += `${fib[i]}\n`;
 }
 
 out.innerText = res;
