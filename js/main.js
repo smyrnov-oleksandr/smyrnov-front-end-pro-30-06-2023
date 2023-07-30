@@ -1,11 +1,24 @@
-// let userName = prompt('What is your name?');
-// alert(`Hello, ${userName}! How are you?`);
+// const fibonacci = (n) => {
+//   if (n <= 1) {
+//     return n;
+//   }
+//   let res = fibonacci(n - 1) + fibonacci(n - 2);
+//   console.log(res);
+//   return res;
+// };
 
-let userName = prompt('What is your name?');
-let userAge = prompt('How old are you?');
-let userLocation = prompt('Where are you from?');
+// fibonacci(5);
 
-alert(userName + ' ' + userAge + ' ' + userLocation);
-alert(`Your name: ${userName}
-Your age: ${userAge}
-Your city: ${userLocation}`);
+const fib = [0, 1]; // Initialize array!
+let fibNum = 30;
+let out = document.querySelector('p');
+let res = '';
+for (let i = 2; i <= fibNum; i++) {
+  for (let k = 0; k <= i; k++) {
+    fib[i] = fib[i - 2] + fib[i - 1];
+  }
+  res += fib[i];
+  res += '\n';
+}
+
+out.innerText = res;
