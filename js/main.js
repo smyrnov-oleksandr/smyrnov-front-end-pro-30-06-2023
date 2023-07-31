@@ -52,18 +52,43 @@ doMath();
 
 // task 3: Написати функцію заповнення даними користувача двомірного масиву. Довжину основного масиву і внутрішніх масивів задає користувач. Значення всіх елементів всіх масивів задає користувач.
 
-function nestedArrays(rows, columns, element) {
-  rows = +prompt('task 3: enter length:');
-  columns = +prompt('task 3: enter length');
-  element = prompt('task 3: enter element of array:');
-  let array = Array(rows)
-    .fill()
-    .map(() => Array(columns).fill(element));
-  console.log(array);
+// function nestedArrays(rows, columns, element) {
+//   rows = +prompt('task 3: enter length:');
+//   columns = +prompt('task 3: enter length');
+//   element = prompt('task 3: enter element of array:');
+//   let array = Array(rows)
+//     .fill()
+//     .map(() => Array(columns).fill(element));
+//   console.log(array);
+//   return array;
+// }
+
+// nestedArrays();
+
+function nestedArrays() {
+  const array = [];
+  const rows = +prompt('task 3: Enter length of 1-st array:');
+
+  for (let i = 0; i < rows; i++) {
+    const nestedArr = [];
+    const columns = +prompt(`task 3: Enter length of nested array №${i + 1}:`);
+
+    for (let k = 0; k < columns; k++) {
+      const elements = prompt(
+        `task 3: Enter element №${k + 1} of array №${i + 1}:`
+      );
+      nestedArr.push(elements);
+    }
+
+    array.push(nestedArr);
+  }
+
   return array;
 }
 
-nestedArrays();
+const arr = nestedArrays();
+
+console.log(arr);
 
 // task 4 : Створити функцію, яка прибирає з рядка всі символи, які ми передали другим аргументом. 'func(" hello world", ['l', 'd'])' поверне нам "heo wor". Вихідний рядок та символи для видалення задає користувач.
 
