@@ -1,11 +1,22 @@
-// let userName = prompt('What is your name?');
-// alert(`Hello, ${userName}! How are you?`);
+// task 1: Написати функцію, яка приймає 1 параметр. з тим, що передали перший раз і т. д. Все це із замиканнями, наприклад:
 
-let userName = prompt('What is your name?');
-let userAge = prompt('How old are you?');
-let userLocation = prompt('Where are you from?');
+// sum(3) = 3
 
-alert(userName + ' ' + userAge + ' ' + userLocation);
-alert(`Your name: ${userName}
-Your age: ${userAge}
-Your city: ${userLocation}`);
+// sum(5) = 8
+
+// sum(20) = 28
+
+function closure() {
+  let res = 0;
+  return function sum(x) {
+    res += x;
+    console.log(res);
+  };
+}
+
+let result = closure();
+result(3);
+result(5);
+result(20);
+result(40);
+result(100);
