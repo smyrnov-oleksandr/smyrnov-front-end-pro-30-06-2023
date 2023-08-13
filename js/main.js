@@ -1,11 +1,23 @@
-// let userName = prompt('What is your name?');
-// alert(`Hello, ${userName}! How are you?`);
+let ladder = {
+  step: 0,
+  up: function () {
+    this.step++;
+    return this;
+  },
+  down: function () {
+    this.step--;
+    return this;
+  },
+  showStep: function () {
+    // показывает текущую ступеньку
+    alert(this.step);
+    return this;
+  },
+};
 
-let userName = prompt('What is your name?');
-let userAge = prompt('How old are you?');
-let userLocation = prompt('Where are you from?');
+// ladder.up();
+// ladder.up();
+// ladder.down();
+// ladder.showStep(); // 1
 
-alert(userName + ' ' + userAge + ' ' + userLocation);
-alert(`Your name: ${userName}
-Your age: ${userAge}
-Your city: ${userLocation}`);
+ladder.up().up().down().down().up().up().up().showStep(); // 1
