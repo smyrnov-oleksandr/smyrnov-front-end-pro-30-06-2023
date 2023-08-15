@@ -55,8 +55,8 @@ class Student {
     if (this.getScore() >= 90 && this.getAttendance() >= 0.9) {
       return `Молодец, ${this.firstName}!`;
     } else if (
-      (this.getScore() >= 90 && this.getAttendance() <= 0.9) ||
-      (this.getScore() <= 90 && this.getAttendance() >= 0.9)
+      (this.getScore() >= 90 && this.getAttendance() < 0.9) ||
+      (this.getScore() < 90 && this.getAttendance() >= 0.9)
     ) {
       return `Добре, ${this.firstName}, але можна краще.`;
     } else {
