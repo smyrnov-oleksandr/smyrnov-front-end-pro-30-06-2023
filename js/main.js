@@ -1,11 +1,10 @@
-// let userName = prompt('What is your name?');
-// alert(`Hello, ${userName}! How are you?`);
+// task: Є текстове поле на сторінці. Під час фокусування на цьому полі збоку з'являється <div>. При пропажі фокусу - <div> так само пропадає
+const input = document.querySelector('input');
+const message = document.querySelector('.message');
 
-let userName = prompt('What is your name?');
-let userAge = prompt('How old are you?');
-let userLocation = prompt('Where are you from?');
-
-alert(userName + ' ' + userAge + ' ' + userLocation);
-alert(`Your name: ${userName}
-Your age: ${userAge}
-Your city: ${userLocation}`);
+input.addEventListener('focus', () => {
+  message.style.left = 0;
+});
+input.addEventListener('focusout', () => {
+  message.style.left = '-100%';
+});
