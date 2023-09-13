@@ -47,69 +47,79 @@ function showGoods(e) {
   let category = e.target.dataset['category'];
   const goods = data.filter((item) => item['category'] === category);
 
-  for (let i = 0; i < goods.length; i++) {
+  renderGoods(goods);
+
+  return goods;
+}
+
+function renderGoods(arr) {
+  for (let i = 0; i < arr.length; i++) {
     let div = document.createElement('div');
     div.classList.add('goods__item');
     let title = document.createElement('h2');
     title.classList.add('goods__title');
-    title.textContent = goods[i]['name'];
+    title.textContent = arr[i]['name'];
     div.append(title);
     let img = document.createElement('img');
     img.classList.add('goods__img');
-    img.src = goods[i]['img'];
+    img.src = arr[i]['img'];
     div.append(img);
     let price = document.createElement('p');
     price.classList.add('goods__price');
-    price.textContent = `${goods[i]['price']} ${goods[i]['currency']}`;
+    price.textContent = `${arr[i]['price']} ${arr[i]['currency']}`;
     div.append(price);
     let quantity = document.createElement('p');
     quantity.classList.add('godds__price');
-    quantity.textContent = `quantity: ${goods[i]['quantity']}`;
+    quantity.textContent = `quantity: ${arr[i]['quantity']}`;
     div.append(quantity);
     let btnInfo = document.createElement('button');
     btnInfo.classList.add('btn-info');
-    btnInfo.setAttribute('data-id', goods[i]['id']);
+    btnInfo.setAttribute('data-id', arr[i]['id']);
     btnInfo.textContent = 'i';
     div.append(btnInfo);
     let btnToCart = document.createElement('button');
     btnToCart.classList.add('to-cart');
-    btnToCart.setAttribute('data-id', goods[i]['id']);
+    btnToCart.setAttribute('data-id', arr[i]['id']);
     btnToCart.textContent = 'To cart';
     div.append(btnToCart);
     goodsOut.append(div);
   }
-
-  return goods;
+  return arr;
 }
 
 function showInfo(e) {
   if (e.target.classList.contains('btn-info')) {
     cleanOut(infoOut);
-    for (let i = 0; i < data.length; i++) {
-      if (e.target.dataset['id'] === data[i]['id']) {
-        infoOut.style.display = 'flex';
-        let img = document.createElement('img');
-        img.classList.add('info__img');
-        img.src = data[i]['img'];
-        infoOut.append(img);
-        let title = document.createElement('h2');
-        title.textContent = data[i]['name'];
-        infoOut.append(title);
-        let desc = document.createElement('p');
-        desc.classList.add('info__desc');
-        desc.textContent = data[i]['description'];
-        infoOut.append(desc);
-        let price = document.createElement('p');
-        price.classList.add('info__price');
-        price.textContent = `${data[i]['price']} ${data[i]['currency']}`;
-        infoOut.append(price);
-        let buyBtn = document.createElement('button');
-        buyBtn.classList.add('buy');
-        buyBtn.textContent = 'Buy';
-        infoOut.append(buyBtn);
-      }
+    renderInfo(data, e.target);
+  }
+}
+
+function renderInfo(arr, item) {
+  for (let i = 0; i < arr.length; i++) {
+    if (item.dataset['id'] === arr[i]['id']) {
+      infoOut.style.display = 'flex';
+      let img = document.createElement('img');
+      img.classList.add('info__img');
+      img.src = arr[i]['img'];
+      infoOut.append(img);
+      let title = document.createElement('h2');
+      title.textContent = arr[i]['name'];
+      infoOut.append(title);
+      let desc = document.createElement('p');
+      desc.classList.add('info__desc');
+      desc.textContent = arr[i]['description'];
+      infoOut.append(desc);
+      let price = document.createElement('p');
+      price.classList.add('info__price');
+      price.textContent = `${arr[i]['price']} ${arr[i]['currency']}`;
+      infoOut.append(price);
+      let buyBtn = document.createElement('button');
+      buyBtn.classList.add('buy');
+      buyBtn.textContent = 'Buy';
+      infoOut.append(buyBtn);
     }
   }
+  return arr;
 }
 
 function showMessage(e) {
@@ -157,8 +167,71 @@ function showCart() {
   cleanOut(cartOut);
   let keys = Object.keys(localStorage);
   let table = document.createElement('table');
-  for (let key of keys) {
-    let goodsInCart = keys[key];
+  renderCart(keys, table);
+
+  cartOut.append(table);
+  cartOut.style.display = 'block';
+  table.addEventListener('click', showInfo);
+  table.addEventListener('click', deleteItem);
+  table.addEventListener('click', plusItem);
+  table.addEventListener('click', minusItem);
+
+  function deleteItem(e) {
+    if (e.target.classList.contains('delete')) {
+      let keys = Object.keys(localStorage);
+      for (let key of keys) {
+        if (e.target.dataset['id'] === key) {
+          localStorage.removeItem(key);
+        }
+      }
+      showCartCount();
+      showCart();
+    }
+  }
+
+  function plusItem(e) {
+    if (e.target.classList.contains('plus')) {
+      for (let key in localStorage) {
+        if (!localStorage.hasOwnProperty(key)) {
+          continue;
+        }
+        let item = JSON.parse(localStorage[key]);
+        if (e.target.dataset['id'] === item['id']) {
+          item['count']++;
+          localStorage.setItem(item['id'], JSON.stringify(item));
+        }
+      }
+      showCart();
+    }
+  }
+
+  function minusItem(e) {
+    if (e.target.classList.contains('minus')) {
+      for (let key in localStorage) {
+        if (!localStorage.hasOwnProperty(key)) {
+          continue;
+        }
+        let item = JSON.parse(localStorage[key]);
+        if (e.target.dataset['id'] === item['id']) {
+          if (item['count'] - 1 !== 0) {
+            item['count']--;
+            localStorage.setItem(item['id'], JSON.stringify(item));
+          } else {
+            localStorage.removeItem(key);
+          }
+        }
+      }
+      showCartCount();
+      showCart();
+    }
+  }
+
+  return table;
+}
+
+function renderCart(arr, item) {
+  for (let key of arr) {
+    let goodsInCart = arr[key];
     goodsInCart = JSON.parse(localStorage.getItem(key));
     //Робимо рядрк
     const tr = document.createElement('tr');
@@ -228,67 +301,9 @@ function showCart() {
       goodsInCart['currency'];
     td.append(span);
     tr.append(td);
-    table.append(tr); //Додаємо рядок до таблиці
+    item.append(tr); //Додаємо рядок до таблиці
   }
-
-  cartOut.append(table);
-  cartOut.style.display = 'block';
-  table.addEventListener('click', showInfo);
-  table.addEventListener('click', deleteItem);
-  table.addEventListener('click', plusItem);
-  table.addEventListener('click', minusItem);
-
-  function deleteItem(e) {
-    if (e.target.classList.contains('delete')) {
-      let keys = Object.keys(localStorage);
-      for (let key of keys) {
-        if (e.target.dataset['id'] === key) {
-          localStorage.removeItem(key);
-        }
-      }
-      showCartCount();
-      showCart();
-    }
-  }
-
-  function plusItem(e) {
-    if (e.target.classList.contains('plus')) {
-      for (let key in localStorage) {
-        if (!localStorage.hasOwnProperty(key)) {
-          continue;
-        }
-        let item = JSON.parse(localStorage[key]);
-        if (e.target.dataset['id'] === item['id']) {
-          item['count']++;
-          localStorage.setItem(item['id'], JSON.stringify(item));
-        }
-      }
-      showCart();
-    }
-  }
-
-  function minusItem(e) {
-    if (e.target.classList.contains('minus')) {
-      for (let key in localStorage) {
-        if (!localStorage.hasOwnProperty(key)) {
-          continue;
-        }
-        let item = JSON.parse(localStorage[key]);
-        if (e.target.dataset['id'] === item['id']) {
-          if (item['count'] - 1 !== 0) {
-            item['count']--;
-            localStorage.setItem(item['id'], JSON.stringify(item));
-          } else {
-            localStorage.removeItem(key);
-          }
-        }
-      }
-      showCartCount();
-      showCart();
-    }
-  }
-
-  return table;
+  return arr;
 }
 
 categoriesOut.addEventListener('click', showGoods);
