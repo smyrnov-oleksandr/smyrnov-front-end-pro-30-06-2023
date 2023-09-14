@@ -1,0 +1,32 @@
+html,
+body {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1000px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.form {
+  margin-bottom: 10px;
+}
+
+#input {
+  width: 25%;
+}
+
+.post-item,
+.comments-item {
+  border: 1px solid black;
+  background-color: bisque;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.comments-item {
+  background-color: orange;
+}
