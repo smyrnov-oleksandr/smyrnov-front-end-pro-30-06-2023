@@ -1,11 +1,33 @@
-// let userName = prompt('What is your name?');
-// alert(`Hello, ${userName}! How are you?`);
+/**
+ * Написати функцію generateList(array), яка приймає масив із чисел та масивів чисел (наприклад [1,2, 3]) і генерує список з елементів:
+ * <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+  </ul>
 
-let userName = prompt('What is your name?');
-let userAge = prompt('How old are you?');
-let userLocation = prompt('Where are you from?');
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>
+        <ul>
+            <li>1.1</li>
+            <li>1.2</li>
+            <li>1.3</li>
+        </ul>
+    </li>
+    <li>3</li>
+  </ul>
+ */
+const out = document.querySelector('.out');
+let array = [1, 2, [1.1, 1.2, 1.3], 3, [3.1, 3.2, 3.3, 3.4], 4, [4.1, 4.2]];
 
-alert(userName + ' ' + userAge + ' ' + userLocation);
-alert(`Your name: ${userName}
-Your age: ${userAge}
-Your city: ${userLocation}`);
+const generateList = (array) => {
+  return (out.innerHTML = `<ul>${array
+    .map((elem) => {
+      return `<li>${Array.isArray(elem) ? generateList(elem) : elem}</li>`;
+    })
+    .join('')}</ul>`);
+};
+
+generateList(array);
