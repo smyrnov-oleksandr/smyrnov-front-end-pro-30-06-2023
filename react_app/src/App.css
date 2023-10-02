@@ -1,0 +1,24 @@
+header {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+}
+
+nav {
+  flex: 0 1 30%;
+}
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+nav ul li {
+  width: 100%;
+}
+main {
+  flex: 0 1 70%;
+}
